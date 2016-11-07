@@ -54,4 +54,7 @@ public class RTree {
   public String display() {
     return root.display(0);
   }
+  public int getDepth() {
+	  return root.getDepth();
+  }
 }
