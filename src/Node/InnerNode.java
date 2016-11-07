@@ -112,6 +112,10 @@ public class InnerNode extends Node {
     if (parent.sons.size() > M) parent.linearSplit(M);
   }
   
+  public int getDepth() {
+	  return sons.get(0).getDepth() + 1;
+  }
+  
   public String display(int depth) {
     StringBuilder sb = new StringBuilder();
     for (int i = 0; i < depth; i++) {sb.append("    ");}
@@ -175,8 +179,14 @@ public class InnerNode extends Node {
         }
       }  
     }
-    parent.sons.remove(this);
-    parent.sons.add(n1);
-    parent.sons.add(n2);
+    if (parent == null) {
+    	parent = new InnerNode(n1, null);
+    	parent.sons.add(n2);
+    }
+    else {
+    	parent.sons.remove(this);
+        parent.sons.add(n1);
+        parent.sons.add(n2);
+    }
   }
 }

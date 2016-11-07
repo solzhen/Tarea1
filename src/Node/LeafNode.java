@@ -27,6 +27,9 @@ public class LeafNode extends Node {
     fixMbr();
     return this;
   }
+  public int getDepth() {
+	  return 1;
+  }
   private void fixMbr() {
     double p1 = sons.get(0).x1;
     double q1 = sons.get(0).y1;

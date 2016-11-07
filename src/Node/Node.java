@@ -18,5 +18,6 @@ public class Node {
   public String display(int i) {
     return null;
   }
+  public int getDepth() {return 0;}
   
 }
