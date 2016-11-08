@@ -2,8 +2,9 @@ package RTree;
 
 import java.util.ArrayList;
 
+import Dictionary.Dictionary;
 import Geometry.Rectangle;
-import Node.*;
+import Serializables.*;
 
 public class RTree {
   
@@ -12,12 +13,12 @@ public class RTree {
     QUADRATIC, LINEAR
   };
   
-  Node root;
+  SerializableNode root;
   public int M;
   public Heur heur;
   
   public RTree(int M, Heur heur) {
-    root = new LeafNode();
+    root = new LeafNode(M);
     this.M = M;
     this.heur = heur;
   }
@@ -34,27 +35,27 @@ public class RTree {
     return root.buscar(rect);
   }
   public void insertar(Rectangle rect) {
-    LeafNode n = root.insertar(rect);
-    if (n.sons.size() > M) {
-      overflowHandler(n);
-    }
-  }
-  private void overflowHandler(LeafNode n) {
-    if (heur == Heur.QUADRATIC)
-        n.quadraticSplit(M);
-    else
-        n.linearSplit(M);
+    root.insertar(rect, this);
     updateRoot();
   }
   private void updateRoot() {
-    while (root.parent != null) {
-      root = root.parent;
+    root = Dictionary.getNode(root.index);
+    int rootin;
+    while (root.parent != 0) {
+      rootin = root.parent;
+      root = Dictionary.getNode(rootin);
     }
   }
   public String display() {
     return root.display(0);
   }
+  public int countNodos() {
+	return root.countSelf();
+  }
+  public int countLeaf() {
+	return root.countLeaf();
+  }
   public int getDepth() {
-	  return root.getDepth();
+	return root.getDepth();
   }
 }

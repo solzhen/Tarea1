@@ -1,6 +1,11 @@
 package Geometry;
 
-public class Rectangle {
+import java.io.Serializable;
+
+public class Rectangle implements Serializable{ //48 bytes
+  
+  //index
+  public int index = 0;
 
   public double x1, y1, x2, y2;
 
@@ -18,7 +23,7 @@ public class Rectangle {
     y2 = mbr.y2;
   }
 
-  public double area() {
+  public double area() { 
     return (x2 - x1) * (y2 - y1);
   }
 
@@ -35,6 +40,11 @@ public class Rectangle {
       ret = lowSideFirst && rect.inter(this, false);
     }
     return ret;
+  }
+  
+  public String display() {
+    return "<(" + Double.toString(x1) + "," + Double.toString(y1) + "),("
+        + Double.toString(x2) + "," + Double.toString(y2) + ")>\n";
   }
 
   public boolean intersects(Rectangle rect) {
